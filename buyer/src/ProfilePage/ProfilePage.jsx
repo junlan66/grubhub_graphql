@@ -56,6 +56,7 @@ class ProfilePage extends React.Component {
     var f = this.state.firstName;
     var p = this.state.phoneNumber;
     var e = this.state.email;
+    const axiosGraphQL = "http://localhost:8080/graphql";
     const UpdateBuyer = `{
       mutation updateOwner ($_id: ID, $name : String!,$email : String!,$password : String!, $phoneNumber : String!){
         updateBuyer(_id : $_id, name : $name, email : $email, password : $password, phoneNumber : $phoneNumber){
@@ -69,7 +70,7 @@ class ProfilePage extends React.Component {
       `;
 
     axiosGraphQL
-      .post("", {
+      .post(axiosGraphQL, {
         query: UpdateBuyer,
         variables: {
           userId: user.id,

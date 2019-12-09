@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, List, ListItem } from "material-ui";
 import { Grid, Row, Col } from "react-flexbox-grid";
-
+const axiosGraphQL = "http://localhost:8080/graphql";
 class SpicyMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class SpicyMenu extends React.Component {
       }
     }
       `;
-    return axiosGraphQL
+    axiosGraphQL
       .get("", {
         query: GET_MENU,
         variables: {

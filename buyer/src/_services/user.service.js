@@ -78,8 +78,8 @@ function register(user) {
     },
     mode: "no-cors",
     body: JSON.stringify({
-      mutation: `mutation createOwner ( $name : String!, $zipcode :String!,$restaurant_name : String!,$email : String!,$password : String!,$cuisine : String!){
-        createOwners( name : $name, zipcode : $zipcode, restaurant_name :$restaurant_name, email : $email, password : $password, cuisine : $cuisine){
+      mutation: `mutation createOwner ( $name : String! ,$email : String!,$password : String!,$phoneNumber : String!){
+        createOwners( name : $name, email : $email, password : $password, phoneNumber : $phoneNumber{
           name,
           email,
           password,
