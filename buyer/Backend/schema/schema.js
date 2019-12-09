@@ -44,7 +44,8 @@ const BuyerType = new GraphQLObjectType({
     _id: { type: GraphQLID },
     name: { type: GraphQLString },
     email: { type: GraphQLString },
-    password: { type: GraphQLString }
+    password: { type: GraphQLString },
+    phoneNumber: { type: GraphQLString }
   })
 });
 
@@ -93,19 +94,17 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    createOwners: {
-      type: OwnerType,
+    createBuyer: {
+      type: buyerType,
       args: {
         name: { type: GraphQLString },
-        zipcode: { type: GraphQLString },
-        restaurant_name: { type: GraphQLString },
         email: { type: GraphQLString },
         password: { type: GraphQLString },
-        cuisine: { type: GraphQLString }
+        phoneNumber: { type: GraphQLString }
       },
       resolve(parent, args) {
-        var owner = new OwnerModel(args);
-        return owner.save();
+        var buyer = new OwnerModel(args);
+        return buyer.save();
       }
     },
     updateOwners: {
@@ -113,24 +112,19 @@ const Mutation = new GraphQLObjectType({
       args: {
         _id: { type: GraphQLID },
         name: { type: GraphQLString },
-        zipcode: { type: GraphQLString },
-        restaurant_name: { type: GraphQLString },
         email: { type: GraphQLString },
         password: { type: GraphQLString },
-        cuisine: { type: GraphQLString }
+        phoneNumber: { type: GraphQLString }
       },
       resolve(parent, args) {
-        var owner = new OwnerModel(args);
-        return OwnerModel.findByIdAndUpdate(
+        return BuyerModel.findByIdAndUpdate(
           args._id,
           {
             $set: {
               name: args.name,
-              zipcode: args.zipcode,
-              restaurant_name: args.restaurant_name,
               email: args.email,
               password: args.password,
-              cuisine: args.cuisine
+              phoneNumber: args.phoneNumber
             }
           },
           { new: true }

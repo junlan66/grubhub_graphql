@@ -60,10 +60,22 @@ class ProfilePage extends React.Component {
     var f = this.state.firstName;
     var p = this.state.phoneNumber;
     var e = this.state.email;
+    const UpdateBuyer = `{
+      mutation updateOwner ($_id: ID, $name : String!,$email : String!,$password : String!, $phoneNumber : String!){
+        updateBuyer(_id : $_id, name : $name, email : $email, password : $password, phoneNumber : $phoneNumber){
+           _id,
+           name,
+            email,
+            password,
+            phoneNumber
+        }
+      }
+      `;
 
-    axios
-      .get("http://localhost:4000/api/buyer/login/userInfo", {
-        params: {
+    axiosGraphQL
+      .post("", {
+        query: UpdateBuyer,
+        variables: {
           userId: user.id,
           firstName: f,
           phoneNumber: p,
@@ -147,8 +159,5 @@ const actionCreators = {
   deleteUser: userActions.delete
 };
 
-const connectedHomePage = connect(
-  mapState,
-  actionCreators
-)(ProfilePage);
+const connectedHomePage = connect(mapState, actionCreators)(ProfilePage);
 export { connectedHomePage as ProfilePage };

@@ -96,7 +96,7 @@ class HomePage extends React.Component {
       }
       `;
 
-    return axiosGraphQL
+    axiosGraphQL
       .post("", {
         query: UpdateOwner,
         variables: {
@@ -108,7 +108,7 @@ class HomePage extends React.Component {
           email: e
         }
       })
-      .then(user => {
+      .then(response => {
         console.log(user);
         user.firstName = f;
         user.phoneNumber = p;
