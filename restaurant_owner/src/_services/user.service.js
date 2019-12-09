@@ -34,8 +34,8 @@ function login(email, password) {
           }
         `,
       variables: {
-        email: "abcde@gmail.com",
-        password: "123"
+        email: email,
+        password: password
       }
     })
   })

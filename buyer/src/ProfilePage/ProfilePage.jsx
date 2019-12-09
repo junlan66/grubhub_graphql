@@ -22,10 +22,6 @@ class ProfilePage extends React.Component {
     this.props.getUsers();
   }
 
-  // handleDeleteUser(id) {
-  //   return e => this.props.deleteUser(id);
-  // }
-
   handleChangeName(event) {
     // console.log("23121434 handleChange" + event.target.firstName);
     console.log("NAME print event" + event.target.value);

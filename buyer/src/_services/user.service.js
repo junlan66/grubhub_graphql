@@ -17,7 +17,25 @@ function login(email, password) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password })
   };
-  return fetch("http://localhost:4000/api/buyer/login", requestOptions)
+  return fetch(axiosGraphQL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    mode: "no-cors",
+    body: JSON.stringify({
+      query: `query {
+        ownerLogin(email: "abcde@gmail.com", password:"123") {
+              _id, name, zipcode, restaurant_name, email, password, cuisine
+            }
+          }
+        `,
+      variables: {
+        email: email,
+        password: password
+      }
+    })
+  })
     .then(handleResponse)
     .then(user => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -53,15 +71,30 @@ function getById(id) {
 }
 
 function register(user) {
-  const requestOptions = {
+  return fetch(axiosGraphQL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
-  };
-
-  return fetch("http://localhost:4000/api/buyer/register", requestOptions).then(
-    handleResponse
-  );
+    headers: {
+      "Content-Type": "application/json"
+    },
+    mode: "no-cors",
+    body: JSON.stringify({
+      mutation: `mutation createOwner ( $name : String!, $zipcode :String!,$restaurant_name : String!,$email : String!,$password : String!,$cuisine : String!){
+        createOwners( name : $name, zipcode : $zipcode, restaurant_name :$restaurant_name, email : $email, password : $password, cuisine : $cuisine){
+          name,
+          email,
+          password,
+          phoneNumber
+        }
+      }
+        `,
+      variables: {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        phoneNumber: user.phoneNumber
+      }
+    })
+  }).then(handleResponse);
 }
 
 function update(user) {
